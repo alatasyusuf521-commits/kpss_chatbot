@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPSS AI Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fa-solid fa-graduation-cap"></i> KPSS AI</h2>
+            </div>
+            <div class="sidebar-actions">
+                <button id="process-pdf-btn" class="btn primary-btn" onclick="processPDFs()">
+                    <i class="fa-solid fa-file-pdf"></i> PDF İşle
+                </button>
+                <button id="new-chat-btn" class="btn secondary-btn" onclick="startNewChat()">
+                    <i class="fa-solid fa-plus"></i> Yeni Sohbet
+                </button>
+            </div>
+            <div class="history-section">
+                <h3>Geçmiş Sohbetler</h3>
+                <ul id="history-list" class="history-list">
+                    <!-- History items will be injected here -->
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-area">
+            <div class="chat-header">
+                <h2 id="current-chat-title">Yeni Sohbet</h2>
+                <div id="processing-status" class="processing-status hidden">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> <span id="status-text">İşleniyor...</span>
+                </div>
+            </div>
+            
+            <div id="chat-messages" class="chat-messages">
+                <!-- Messages will appear here -->
+                <div class="message-container bot">
+                    <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="message-bubble">
+                        Merhaba! Ben KPSS kaynaklarınıza dayalı AI asistanınızım. Size nasıl yardımcı olabilirim?
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <form id="chat-form" onsubmit="sendMessage(event)">
+                    <div class="input-wrapper">
+                        <input type="text" id="user-input" placeholder="Sounuzu buraya yazın..." autocomplete="off" required>
+                        <button type="submit" id="send-btn" class="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="loading-modal" class="modal hidden">
+        <div class="modal-content">
+            <i class="fa-solid fa-spinner fa-spin spinner-large"></i>
+            <h3>PDF'ler İşleniyor</h3>
+            <p id="modal-status-text">Bu işlem PDF boyutlarına bağlı olarak birkaç dakika sürebilir. Lütfen bekleyin...</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', path='js/main.js') }}"></script>
+</body>
+</html>
